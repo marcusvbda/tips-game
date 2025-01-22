@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { ReactNode } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { View } from "react-native";
 import { COLORS } from "../styles/constants";
 
 interface IProps {
@@ -9,20 +9,9 @@ interface IProps {
 
 export default function DefaultTemplate({ children }: IProps) {
   return (
-    <View style={styles.defaultContainer}>
+    <View style={{ flex: 1, backgroundColor: COLORS.background }}>
       <StatusBar style="auto" />
-      <View style={styles.mainContent}>{children}</View>
+      <View style={{ flex: 1, paddingTop: 55 }}>{children}</View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  defaultContainer: {
-    flex: 1,
-    backgroundColor: COLORS.background,
-  },
-  mainContent: {
-    flex: 1,
-    paddingTop: 40,
-  },
-});

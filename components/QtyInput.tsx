@@ -89,8 +89,8 @@ const styles = StyleSheet.create({
   btnAction: {
     justifyContent: "center",
     alignItems: "center",
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
     borderRadius: 50,
     backgroundColor: COLORS.backgroundDark,
   },

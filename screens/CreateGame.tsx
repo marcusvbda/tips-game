@@ -1,13 +1,5 @@
 import { useState } from "react";
-import {
-  KeyboardAvoidingView,
-  Platform,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  ScrollView,
-} from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import DefaultTemplate from "../components/DefaultTemplate";
 import { COLORS, SIZES } from "../styles/constants";
 import QtyInput from "../components/QtyInput";
@@ -41,81 +33,69 @@ export default function CreateGameScreen({ navigation }: any) {
 
   return (
     <DefaultTemplate>
-      <KeyboardAvoidingView
-        style={styles.container}
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-      >
-        <ScrollView contentContainerStyle={styles.scrollViewContent}>
-          <View style={styles.configSection}>
-            <QtyInput
-              label="Quantidade de palavras"
-              max={100}
-              min={25}
-              value={numWords}
-              onChange={setNumWords}
-            />
-            <QtyInput
-              label="Palavras por time"
-              max={numWords}
-              min={1}
-              value={numWordsPerTeam}
-              onChange={setNumWordsPerTeam}
-            />
-            <QtyInput
-              label="Quantidade de armadilhas"
-              max={5}
-              min={1}
-              value={numTraps}
-              onChange={setNumTraps}
-            />
-            <QtyInput
-              label="Tempo para o líder pensar (min)"
-              max={10}
-              min={1}
-              value={leaderTime}
-              onChange={setLeaderTime}
-            />
-            <QtyInput
-              label="Tempo para responder (min)"
-              max={10}
-              min={1}
-              value={responseTime}
-              onChange={setResponseTime}
-            />
-          </View>
-          <View style={styles.btnsSection}>
-            <TouchableOpacity
-              style={styles.btnStart}
-              onPress={handleCreateGame}
-              activeOpacity={0.8}
-            >
-              <Text style={styles.btnCreateText}>COMEÇAR JOGO</Text>
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
+      <View style={styles.formSection}>
+        <QtyInput
+          label="Quantidade de palavras"
+          max={100}
+          min={25}
+          value={numWords}
+          onChange={setNumWords}
+        />
+        <QtyInput
+          label="Quantidade de palavras"
+          max={100}
+          min={25}
+          value={numWords}
+          onChange={setNumWords}
+        />
+        <QtyInput
+          label="Palavras por time"
+          max={numWords}
+          min={1}
+          value={numWordsPerTeam}
+          onChange={setNumWordsPerTeam}
+        />
+        <QtyInput
+          label="Quantidade de armadilhas"
+          max={5}
+          min={1}
+          value={numTraps}
+          onChange={setNumTraps}
+        />
+        <QtyInput
+          label="Tempo para o líder pensar (min)"
+          max={10}
+          min={1}
+          value={leaderTime}
+          onChange={setLeaderTime}
+        />
+        <QtyInput
+          label="Tempo para responder (min)"
+          max={10}
+          min={1}
+          value={responseTime}
+          onChange={setResponseTime}
+        />
+      </View>
+      <View style={styles.btnSection}>
+        <TouchableOpacity
+          style={styles.btnStart}
+          onPress={handleCreateGame}
+          activeOpacity={0.8}
+        >
+          <Text style={styles.btnCreateText}>COMEÇAR JOGO</Text>
+        </TouchableOpacity>
+      </View>
     </DefaultTemplate>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.background,
-  },
-  scrollViewContent: {
-    flexGrow: 1,
+  formSection: {
+    flex: 3,
     alignItems: "center",
-    paddingBottom: 20,
-    paddingTop: 40,
-  },
-  btnsSection: {
-    flexDirection: "column",
-    alignItems: "center",
-    marginTop: 20,
-    marginBottom: 20,
-    gap: 20,
-    width: "100%",
+    justifyContent: "center",
+    gap: 10,
   },
   btnStart: {
     marginTop: 40,
@@ -131,10 +111,9 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     fontWeight: "bold",
   },
-  configSection: {
-    width: "100%",
-    flexDirection: "column",
+  btnSection: {
+    flex: 1,
     alignItems: "center",
-    gap: 20,
+    justifyContent: "center",
   },
 });

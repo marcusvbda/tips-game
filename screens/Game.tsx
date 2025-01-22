@@ -1,43 +1,60 @@
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
 import DefaultTemplate from "../components/DefaultTemplate";
 import { COLORS } from "../styles/constants";
-import Header from "../components/Header";
 import { useEffect, useState } from "react";
+import { createGame, IGame } from "../actions/game";
+import WordList from "../components/WordList";
+import TipCard from "../components/TipCard";
 
 export default function GameScreen({ route }: any) {
+  const [game, setGame] = useState<IGame>({
+    words: [],
+    maps: [],
+    traps: [],
+    match: {
+      playing: "teamA",
+      tip: "",
+      tipTime: 0,
+      leaderTime: 0,
+    },
+  });
   const [loading, setLoading] = useState(false);
 
   const { numWords, numWordsPerTeam, numTraps, leaderTime, responseTime } =
     route.params;
 
-  useEffect(() => {
-    const createGate = async () => {
-      setLoading(true);
-      await new Promise((resolve) => setTimeout(resolve, 3000));
-      setLoading(false);
-    };
+  const initGame = () => {
+    setLoading(true);
+    const newGame: IGame = createGame(numWords, numWordsPerTeam, numTraps);
+    setGame({
+      ...newGame,
+      match: { ...newGame.match, tipTime: leaderTime, leaderTime },
+    });
+    setLoading(false);
+  };
 
-    createGate();
+  useEffect(() => {
+    initGame();
   }, []);
 
   return (
     <DefaultTemplate>
-      <Header />
       {loading ? (
-        <ActivityIndicator size="large" color={COLORS.primary} />
+        <View style={styles.loadingSection}>
+          <ActivityIndicator size="large" color={COLORS.primary} />
+        </View>
       ) : (
-        <View>
-          <Text>Quantidade de palavras: {numWords}</Text>
-          <Text>Palavras por time: {numWordsPerTeam}</Text>
-          <Text>Quantidade de armadilhas: {numTraps}</Text>
-          <Text>Tempo para o líder pensar (min): {leaderTime}</Text>
-          <Text>Tempo para responder (min): {responseTime}</Text>
+        <View style={{ flex: 1 }}>
+          <TipCard game={game} />
+          <View style={{ flex: 6 }}>
+            <WordList words={game.words} />
+          </View>
         </View>
       )}
     </DefaultTemplate>
   );
 }
 
-// const styles = StyleSheet.create({
-//   //
-// });
+const styles = StyleSheet.create({
+  loadingSection: { flex: 1, justifyContent: "center", alignItems: "center" },
+});

@@ -1,19 +1,28 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import DefaultTemplate from "../components/DefaultTemplate";
 import { COLORS, SIZES } from "../styles/constants";
-import Header from "../components/Header";
 
 export default function HomeScreen({ navigation }: any) {
   return (
     <DefaultTemplate>
-      <Header />
-      <View style={styles.btnsSection}>
+      <View style={styles.titleSection}>
+        <Image
+          source={require("../assets/idea.png")}
+          style={{ width: "50%", height: "50%" }}
+        />
+        <Text style={styles.title}>TIPS</Text>
+      </View>
+      <View style={styles.subText}>
+        <Text style={styles.subTitle}>Bora jogar ?</Text>
+        <Text style={styles.subDescription}>Divirta-se com seus amigos</Text>
+      </View>
+      <View style={styles.btnSection}>
         <TouchableOpacity
-          style={styles.btnStart}
+          style={styles.startGameBtn}
           onPress={() => navigation.navigate("create-game")}
           activeOpacity={0.8}
         >
-          <Text style={styles.btnStartText}>NOVO JOGO</Text>
+          <Text style={styles.btnText}>NOVO JOGO</Text>
         </TouchableOpacity>
       </View>
     </DefaultTemplate>
@@ -21,13 +30,35 @@ export default function HomeScreen({ navigation }: any) {
 }
 
 const styles = StyleSheet.create({
-  btnsSection: {
-    flexDirection: "column",
+  titleSection: {
+    flex: 3,
+    justifyContent: "center",
     alignItems: "center",
-    paddingTop: 40,
     gap: 20,
   },
-  btnStart: {
+  title: { fontWeight: "bold", fontSize: 80, color: COLORS.primary },
+  subText: {
+    flex: 1,
+    alignItems: "center",
+    gap: 20,
+  },
+  subTitle: {
+    fontWeight: "bold",
+    fontSize: 30,
+    color: "#fefefe",
+  },
+  subDescription: {
+    fontWeight: "bold",
+    fontSize: 16,
+    color: "#fefefe",
+    opacity: 0.5,
+  },
+  btnSection: {
+    flex: 2,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  startGameBtn: {
     width: "70%",
     height: 50,
     justifyContent: "center",
@@ -35,7 +66,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     backgroundColor: COLORS.primary,
   },
-  btnStartText: {
+  btnText: {
     fontSize: SIZES.fontMedium,
     color: "#FFFFFF",
     fontWeight: "bold",
